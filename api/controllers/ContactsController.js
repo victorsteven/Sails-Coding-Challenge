@@ -27,36 +27,33 @@ module.exports = {
 
     if ( !_.isString( req.param('name') ) ||  !_.isString( req.param('email') ) || !_.isNumber( req.param('phone') )  || !_isObject( req.param('photo'))) {
 
+      photo.upload({
+        adapter: require('skipper-s3'),
+        key: 'AKIASOAXMDDCFRNTGTQT',
+        secret: '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',
+        bucket: 'sails-bucket',
+      }, (err, uploadedFile) => {
+        if (err) {
+          return res.serverError(err);
+        }
+        if (uploadedFile.length === 0){
+          return res.badRequest('No file was uploaded');
+        }
+        console.log('this is what we have: ', uploadedFile);
+        const photoname = uploadedFile[0].filename;
+        const photouid = uploadedFile[0].fd.replace(/^.*[\\\/]/, '');
+        Contacts.create({
+          name, email, phone, photoname, photouid
+        }).exec(err => {
+          if(err) {
+            res.send(500, { error: err });
+          }
+          res.redirect('/');
+        });
+      });
+    } else {
       return res.redirect('back');
     }
-
-    photo.upload({
-      adapter: require('skipper-s3'),
-      key: 'AKIASOAXMDDCFRNTGTQT',
-      secret: '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',
-      bucket: 'sails-bucket',
-    }, (err, uploadedFile) => {
-      if (err) {
-        return res.serverError(err);
-      }
-
-      if (uploadedFile.length === 0){
-        return res.badRequest('No file was uploaded');
-      }
-      console.log('this is what we have: ', uploadedFile);
-
-      const photoname = uploadedFile[0].filename;
-      const photouid = uploadedFile[0].fd.replace(/^.*[\\\/]/, '');
-
-      Contacts.create({
-        name, email, phone, photoname, photouid
-      }).exec(err => {
-        if(err) {
-          res.send(500, { error: err });
-        }
-        res.redirect('/');
-      });
-    });
   },
 
   profile: (req, res) => {
