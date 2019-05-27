@@ -1,0 +1,25 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+        <h4 style="margin-left: 15px;">Contacts</h4>
+
+            <div class="card-deck">
+              <% contacts.forEach(function(contact) { %>
+                <div class="col-lg-3 col-md-3">
+                  <div class="card" style="margin-bottom: 40px">
+                      <a href="/contacts/profile/<%= contact.id %>">
+                          <div class="card-img">
+                              <img class="card-img-top style-card" src="https://s3.amazonaws.com/sails-bucket/<%= contact.photouid %>" alt="<%= contact.photoname %>" >
+                          </div>
+                          <div class="card-body" style="text-align: center;">
+                              <span><%= contact.name %></span>
+                          </div>
+                      </a>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+        </div>
+    </div>
+</div>

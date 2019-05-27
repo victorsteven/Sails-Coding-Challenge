@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+
+      <div class="card-header">
+        <h4 class="">Add Contact</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" action="/contacts/create" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="" class="form-control" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" id="" class="form-control" required>
+          </div>
+        
+          <div class="form-group">
+            <label for="photo">Photo</label>
+            <input type="file" name="photo" id="" class="form-control" required accept="image/*">
+          </div>
+          <div class="card-footer" style="text-align: center;">
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </div>
+          <input type="hidden" name="_csrf" id="" value="<%= _csrf %>">
+      </form>
+    </div>
+  </div>
+</div>
+
