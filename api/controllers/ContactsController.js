@@ -29,9 +29,9 @@ module.exports = {
 
       photo.upload({
         adapter: require('skipper-s3'),
-        key: 'AKIASOAXMDDCFRNTGTQT',
-        secret: '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',
-        bucket: 'sails-bucket',
+        key: '',
+        secret: '',
+        bucket: '',
       }, (err, uploadedFile) => {
         if (err) {
           return res.serverError(err);
